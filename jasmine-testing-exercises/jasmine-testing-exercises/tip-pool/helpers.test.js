@@ -41,9 +41,9 @@ describe("helpers tests", function () {
 
     it("should append a new td", function () {
       let newTr = document.createElement("tr");
-      appendTd(newTr, "check-check");
+      appendDeleteBtn(newTr);
       expect(newTr.children.length).toEqual(1);
-      expect(newTr.firstChild.innerHTML).toEqual("check-check");
+      expect(newTr.firstChild.innerHTML).toEqual("X");
     });
 
     afterEach(function () {

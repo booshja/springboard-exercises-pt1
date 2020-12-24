@@ -43,10 +43,11 @@ describe("payments tests", function () {
 
     let tdList = document.querySelectorAll("#paymentTable tbody tr td");
 
-    expect(tdList.length).toEqual(3);
+    expect(tdList.length).toEqual(4);
     expect(tdList[0].innerText).toEqual("$100");
     expect(tdList[1].innerText).toEqual("$30");
     expect(tdList[2].innerText).toEqual("30%");
+    expect(tdList[3].innerText).toEqual("X");
   });
 
   afterEach(function () {

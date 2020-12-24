@@ -19,13 +19,12 @@ describe("Servers test (with setup and tear-down)", function () {
 
   it("should update server table on updateServerTable()", function () {
     submitServerInfo();
-    let tdList = document.serverTbody.querySelectorAll(
-      "#serverTable tbody tr td"
-    );
+    let tdList = serverTbody.querySelectorAll("#serverTable tbody tr td");
 
     expect(tdList.length).toEqual(3);
     expect(tdList[0].innerText).toEqual("Alice");
     expect(tdList[1].innerText).toEqual("$0.00");
+    expect(tdList[2].innerText).toEqual("X");
   });
 
   afterEach(function () {
