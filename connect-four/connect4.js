@@ -25,13 +25,16 @@ function makeBoard() {
 /** makeHtmlBoard: make HTML table and row of column tops. */
 
 function makeHtmlBoard() {
-  // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
+  const htmlBoard = document.getElementById("board");
 
-  // TODO: add comment for this code
+  /**makes the top table row for use as "buttons" for user to decide where
+   * to drop their game piece*/
   const top = document.createElement("tr");
   top.setAttribute("id", "column-top");
   top.addEventListener("click", handleClick);
 
+  /**creates the cells that go within the top table row
+   * then adds the table row to the htmlBoard   */
   for (let x = 0; x < WIDTH; x++) {
     const headCell = document.createElement("td");
     headCell.setAttribute("id", x);
@@ -39,7 +42,7 @@ function makeHtmlBoard() {
   }
   htmlBoard.append(top);
 
-  // TODO: add comment for this code
+  /** creates all the rows and adds the cells to them  */
   for (let y = 0; y < HEIGHT; y++) {
     const row = document.createElement("tr");
     for (const x = 0; x < WIDTH; x++) {
