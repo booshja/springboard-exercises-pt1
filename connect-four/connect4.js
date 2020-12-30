@@ -7,8 +7,8 @@
 
 const WIDTH = 7;
 const HEIGHT = 6;
-let currPlayer = 1; // active player: 1 or 2
-let board = []; // array of rows, each row is array of cells  (board[y][x])
+let currPlayer = 1; /** active player: 1 or 2 */
+let board = []; /** array of rows, each row is array of cells  (board[y][x]) */
 
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])
@@ -65,7 +65,7 @@ function findSpotForCol(x) {
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 function placeInTable(row, column) {
-  // make a div and insert into correct table cell
+  /** make a div and insert into correct table cell */
   const piece = document.createElement("div");
   if (currPlayer === 1) {
     piece.className = "piece player1";
@@ -86,6 +86,9 @@ function endGame(msg) {
 
 /** handleClick: handle click of column top to play piece */
 function handleClick(evt) {
+  function _tie(cells) {
+    return cells.every((el) => el === 1 || el === 2);
+  }
   /** get x from ID of clicked cell */
   const x = +evt.target.id;
   let tieArray = [];
@@ -116,10 +119,6 @@ function handleClick(evt) {
     endGame("It's a tie!");
   }
 
-  function _tie(cells) {
-    return cells.every((el) => el === 1 || el === 2);
-  }
-
   /** change to the other player's turn */
   if (currPlayer === 1 ? (currPlayer = 2) : (currPlayer = 1));
 }
@@ -127,9 +126,9 @@ function handleClick(evt) {
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
 function checkForWin() {
   function _win(cells) {
-    // Check four cells to see if they're all color of current player
-    //  - cells: list of four (y, x) cells
-    //  - returns true if all are legal coordinates & all match currPlayer
+    /** Check four cells to see if they're all color of current player
+      - cells: list of four (y, x) cells
+      - returns true if all are legal coordinates & all match currPlayer */
 
     return cells.every(
       ([y, x]) =>
@@ -141,28 +140,32 @@ function checkForWin() {
     );
   }
 
-  // TODO: read and understand this code. Add comments to help you.
-
+  /** Goes through each cell on the playing board by iterating through
+   * all the combinations of x's and y's */
   for (let y = 0; y < HEIGHT; y++) {
     for (let x = 0; x < WIDTH; x++) {
+      /* Creates an array checking all the horizontal options */
       const horiz = [
         [y, x],
         [y, x + 1],
         [y, x + 2],
         [y, x + 3],
       ];
+      /**Creates an array checking all the veritcal options */
       const vert = [
         [y, x],
         [y + 1, x],
         [y + 2, x],
         [y + 3, x],
       ];
+      /** Creates an array checking all the diagonal down to the right */
       const diagDR = [
         [y, x],
         [y + 1, x + 1],
         [y + 2, x + 2],
         [y + 3, x + 3],
       ];
+      /**Creates an array checking all the diagonal down to the left */
       const diagDL = [
         [y, x],
         [y + 1, x - 1],
@@ -170,6 +173,8 @@ function checkForWin() {
         [y + 3, x - 3],
       ];
 
+      /**Passes all the arrays to the _win function, if any of them come back
+       * true, then it returns true (there was a win */
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
         return true;
       }
