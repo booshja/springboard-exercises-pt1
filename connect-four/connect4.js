@@ -7,7 +7,6 @@
 
 const WIDTH = 7;
 const HEIGHT = 6;
-
 let currPlayer = 1; // active player: 1 or 2
 let board = []; // array of rows, each row is array of cells  (board[y][x])
 
@@ -87,28 +86,38 @@ function endGame(msg) {
 
 /** handleClick: handle click of column top to play piece */
 function handleClick(evt) {
-  // get x from ID of clicked cell
+  /** get x from ID of clicked cell */
   const x = +evt.target.id;
+  let tieArray = [];
 
-  // get next spot in column (if none, ignore click)
+  /** get next spot in column (if none, ignore click) */
   const y = findSpotForCol(x);
   if (y === null) {
     return;
   }
 
-  // place piece in board and add to HTML table
+  /** place piece in board and add to HTML table */
   placeInTable(y, x);
   board[y][x] = currPlayer;
 
-  // check for win
+  /** check for win */
   if (checkForWin()) {
     return endGame(`Player ${currPlayer} won!`);
   }
 
   /** check for tie */
-  const tie = board.every((e) => typeof e === "number");
-  if (tie === true) {
+  for (let y = 0; y < HEIGHT; y++) {
+    for (let x = 0; x < WIDTH; x++) {
+      const boardPosition = board[y][x];
+      tieArray.push(boardPosition);
+    }
+  }
+  if (_tie(tieArray)) {
     endGame("It's a tie!");
+  }
+
+  function _tie(cells) {
+    return cells.every((el) => el === 1 || el === 2);
   }
 
   /** change to the other player's turn */
