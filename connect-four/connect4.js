@@ -54,10 +54,13 @@ function makeHtmlBoard() {
 }
 
 /** findSpotForCol: given column x, return top empty y (null if filled) */
-
 function findSpotForCol(x) {
-  // TODO: write the real version of this, rather than always returning 0
-  return 0;
+  for (i = 5; i > -1; i--) {
+    if (board[i][x] === undefined) {
+      return i;
+    }
+  }
+  return null;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
@@ -77,14 +80,12 @@ function placeInTable(row, column) {
 }
 
 /** endGame: announce game end */
-
 function endGame(msg) {
   /**pop up alert message saying who won */
   alert(msg);
 }
 
 /** handleClick: handle click of column top to play piece */
-
 function handleClick(evt) {
   // get x from ID of clicked cell
   const x = +evt.target.id;
@@ -104,9 +105,8 @@ function handleClick(evt) {
     return endGame(`Player ${currPlayer} won!`);
   }
 
-  // check for tie
-  // TODO: check if all cells in board are filled; if so call, call endGame
-  const tie = board.every((e) => e !== null);
+  /** check for tie */
+  const tie = board.every((e) => typeof e === "number");
   if (tie === true) {
     endGame("It's a tie!");
   }
@@ -116,7 +116,6 @@ function handleClick(evt) {
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
-
 function checkForWin() {
   function _win(cells) {
     // Check four cells to see if they're all color of current player
