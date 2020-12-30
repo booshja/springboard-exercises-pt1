@@ -45,7 +45,7 @@ function makeHtmlBoard() {
   /** creates all the rows and adds the cells to them  */
   for (let y = 0; y < HEIGHT; y++) {
     const row = document.createElement("tr");
-    for (const x = 0; x < WIDTH; x++) {
+    for (let x = 0; x < WIDTH; x++) {
       const cell = document.createElement("td");
       cell.setAttribute("id", `${y}-${x}`);
       row.append(cell);
@@ -63,8 +63,13 @@ function findSpotForCol(x) {
 
 /** placeInTable: update DOM to place piece into HTML table of board */
 
-function placeInTable(y, x) {
-  // TODO: make a div and insert into correct table cell
+function placeInTable(row, column) {
+  // make a div and insert into correct table cell
+  const location = row.toString() + "-" + column.toString();
+  const piece = document.createElement("div");
+  piece.className = "piece player1";
+  const dropLoc = document.getElementById(location);
+  dropLoc.append(piece);
 }
 
 /** endGame: announce game end */
