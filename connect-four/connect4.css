@@ -6,8 +6,16 @@
   border: solid 1px #666;
 }
 
-/* pieces are div within game table cells: draw as colored circles */
+/* column-top is table row of clickable areas for each column */
+#column-top td {
+  border: dashed 1px lightgray;
+}
 
+#column-top td:hover {
+  background-color: gold;
+}
+
+/* pieces are div within game table cells: draw as colored circles */
 .piece {
   margin: 5px;
   width: 80%;
@@ -23,14 +31,4 @@
 
 .player2 {
   background-color: blue;
-}
-
-/* column-top is table row of clickable areas for each column */
-
-#column-top td {
-  border: dashed 1px lightgray;
-}
-
-#column-top td:hover {
-  background-color: gold;
 }
