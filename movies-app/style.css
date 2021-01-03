@@ -1,0 +1,30 @@
+form,
+ul {
+  display: flex;
+  justify-content: center;
+}
+
+h1 {
+  font-size: 50px;
+}
+
+.headline {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+h3 {
+  font-size: 30px;
+}
+
+li {
+  font-size: 25px;
+}
+
+body {
+  background-color: lightseagreen;
+}
+
+.center {
+  text-align: center;
+}
