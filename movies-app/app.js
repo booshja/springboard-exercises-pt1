@@ -10,3 +10,6 @@ $("#submit").click(function (event) {
 });
 
 //TODO: ADD EVENT LISTENER FOR REMOVING LI'S
+$("#ratings-list").on("click", "li button", function (e) {
+  $(this).parent().remove();
+});
