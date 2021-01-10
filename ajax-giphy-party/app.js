@@ -1,26 +1,31 @@
 const api_key = "BUwYvWo6SBuu7pifo3d7PWWm4ubFENYq";
 const limit = 1;
 
-console.log("Let's get this party started!");
-
 $("#submit").on("click", function (e) {
   e.preventDefault();
   const term = $("#gifInput").val();
-  getGiphy(term);
+  const url = getGiphy(term);
+});
+
+$("#clearBtn").on("click", function (e) {
+  $("#imgRow").html("");
 });
 
 async function getGiphy(term) {
   const q = term;
+  const offset = Math.floor(Math.random() * 100);
   try {
     const res = await axios.get("https://api.giphy.com/v1/gifs/search", {
-      params: {
-        q,
-        api_key,
-        limit,
-      },
+      params: { q, api_key, limit, offset },
     });
-    console.log(res);
+    const url = res.data.data[0].images.fixed_height.url;
+    $("<img>")
+      .attr({ src: url })
+      .addClass("img-fluid")
+      .appendTo($("<div>").addClass("col-4").appendTo($("#imgRow")));
+    $("#gifInput").val("");
   } catch {
-    console.log("oopsie");
+    $("#gifInput").val("");
+    alert("That didn't seem to work! Try another search term.");
   }
 }
