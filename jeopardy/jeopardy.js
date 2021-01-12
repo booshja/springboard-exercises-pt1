@@ -20,14 +20,12 @@
 
 let categories = [];
 
-
 /** Get NUM_CATEGORIES random category from API.
  *
  * Returns array of category ids
  */
 
-function getCategoryIds() {
-}
+function getCategoryIds() {}
 
 /** Return object with data about a category:
  *
@@ -41,8 +39,7 @@ function getCategoryIds() {
  *   ]
  */
 
-function getCategory(catId) {
-}
+function getCategory(catId) {}
 
 /** Fill the HTML table#jeopardy with the categories & cells for questions.
  *
@@ -52,8 +49,7 @@ function getCategory(catId) {
  *   (initally, just show a "?" where the question/answer would go.)
  */
 
-async function fillTable() {
-}
+async function fillTable() {}
 
 /** Handle clicking on a clue: show the question or answer.
  *
@@ -63,21 +59,17 @@ async function fillTable() {
  * - if currently "answer", ignore click
  * */
 
-function handleClick(evt) {
-}
+function handleClick(evt) {}
 
 /** Wipe the current Jeopardy board, show the loading spinner,
  * and update the button used to fetch data.
  */
 
-function showLoadingView() {
-
-}
+function showLoadingView() {}
 
 /** Remove the loading spinner and update the button used to fetch data. */
 
-function hideLoadingView() {
-}
+function hideLoadingView() {}
 
 /** Start game:
  *
@@ -86,8 +78,7 @@ function hideLoadingView() {
  * - create HTML table
  * */
 
-async function setupAndStart() {
-}
+async function setupAndStart() {}
 
 /** On click of start / restart button, set up game. */
 
@@ -96,3 +87,23 @@ async function setupAndStart() {
 /** On page load, add event handler for clicking clues */
 
 // TODO
+
+/**Displays the initial setup text and button */
+$("document").ready(function () {
+  let $greeting = $(
+    `<div class='container'>
+        <div class='row justify-content-center mt-4'>
+          <h1 id='jeopardy' class='text-white'>Jeopardy!</h1>
+        </div>
+        <div class='row justify-content-center'>
+          <div class='col-5'>
+            <
+            <button id='startBtn' class='btn btn-block btn-info'>
+              Let's Play!
+            </button>
+          </div>
+        </div>
+      </div>`
+  );
+  $("body").append($greeting);
+});

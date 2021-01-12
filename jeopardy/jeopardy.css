@@ -1,7 +1,12 @@
 /* some colors you may find useful:
-  #115ff4
-  #060ce9
-  #28a200
-  #8d2ab5
-  #74119c
+  #115ff4 light blue
+  #060ce9 blue
+  #28a200 green
+  #8d2ab5 lavender
+  #74119c darker lavender
+  #00024b dark blue (background)
 */
+
+body {
+  background-color: #00024b;
+}
