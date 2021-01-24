@@ -16,3 +16,9 @@ def friend_date(a, b):
         >>> friend_date(sauron, gandalf)
         True
     """
+
+    for el in a[2]:
+        if el in b[2]:
+            return True
+
+    return False

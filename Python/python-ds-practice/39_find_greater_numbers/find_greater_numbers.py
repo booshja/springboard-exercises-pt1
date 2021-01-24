@@ -19,3 +19,12 @@ def find_greater_numbers(nums):
         >>> find_greater_numbers([])
         0
     """
+
+    greater = 0
+
+    for i in range(len(nums)):
+        for j in range(i, len(nums)):
+            if nums[i] < nums[j]:
+                greater += 1
+
+    return greater

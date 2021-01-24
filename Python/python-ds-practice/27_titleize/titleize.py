@@ -7,3 +7,6 @@ def titleize(phrase):
         >>> titleize('oNLy cAPITALIZe fIRSt')
         'Only Capitalize First'
     """
+
+    phrase_lower = phrase.lower()
+    return phrase_lower.title()
