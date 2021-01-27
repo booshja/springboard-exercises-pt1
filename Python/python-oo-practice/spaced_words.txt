@@ -1,0 +1,85 @@
+# Fruits
+
+Abiu
+Acai
+Acerola
+Ackee
+Apple
+Apricot
+Avocado
+Banana
+Bilberry
+Blackberry
+Blackcurrant
+Black sapote
+Blueberry
+Boysenberry
+Breadfruit
+Buddha's Hand (Fingered Citron)
+
+# Veggies
+
+Artichoke
+Aubergine
+Asparagus
+Alfalfa Sprouts
+Azuki Beans
+Bean Sprouts
+Black Beans
+Black-eyed Peas
+Borlotti Bean
+Broad Beans
+Broccoflower
+Broccoli
+Brussels Sprouts
+
+# Herbs
+
+Anise
+Basil
+Caraway
+Coriander
+Chamomile
+Daikon
+Fennel
+Lavender
+Cymbopogon
+Marjoram
+Oregano
+Parsley
+Rosemary
+Thyme
+
+# Peppers
+
+Bell Pepper
+Chili Pepper
+Jalapeno
+Habanero
+Paprika
+Tobasco Pepper
+Cayenne Pepper
+
+# Root Veggies
+
+Beetroot
+Carrot
+Celeriac
+Eddoe
+Konjac
+Taro
+Water Chestnut
+
+# Squashes
+
+Acorn Squash
+Bitter Melon
+Butternut Squash
+Banana Squash
+Courgette
+Cucumber
+Delicata
+Gem Squash
+Hubbard Squash
+Marrow Squash
+Spaghetti Squash
