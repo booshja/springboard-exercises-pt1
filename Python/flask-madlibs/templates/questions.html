@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% block title %}Madlibs!{% endblock %} {% block
+content %}
+<h1>Madlibs</h1>
+<form action="/story" id="lib_form">
+  {% for word in words_list %}
+  <label>{{word}}: <input id="{{word}}" type="text" name="{{word}}" /></label
+  ><br /><br />
+  {% endfor %}
+  <button>Submit</button>
+</form>
+{% endblock %}
+
+<!-- 1 something that's way over my head subject-wise
+-the people there will be more senior/hiring managers
+1 peer level
+
+2-3 per month total
+
+practice elevator pitch
+-notice challenges I have so we can discuss it
+
+places to look for companies research:
+glassdoor, crunchbase, linkedin
+
+cruchbase:
+  can play with filters to get new lists of 5
+glassdoor:
+  take reviews with grain of salt -->
