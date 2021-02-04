@@ -1,0 +1,10 @@
+.navbar {
+  background-color: black;
+}
+
+.navbar h3 {
+  color: white;
+  font-size: 17px;
+  text-align: center;
+  padding: 14px 16px;
+}
