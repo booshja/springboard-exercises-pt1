@@ -2,7 +2,7 @@
 content %}
 <h1>Flask Survey</h1>
 <p>Welcome to the Flask Survey. Press the button when ready to begin.</p>
-<button onclick="window.location.href='/questions/0';" id="begin">
-  Begin!
-</button>
+<form action="/begin">
+  <input type="submit" name="begin" value="Begin" />
+</form>
 {% endblock %}

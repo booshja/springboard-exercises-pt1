@@ -1,18 +1,25 @@
-from flask import Flask, render_template, redirect, flash, request
+from flask import Flask, flash, redirect, render_template, request, session
 from flask_debugtoolbar import DebugToolbarExtension
+
 from surveys import surveys
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "this-is-secret"
 debug = DebugToolbarExtension(app)
+app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
-responses = []
 current_page = 0
 
 
 @app.route('/')
 def landing_page():
     return render_template('home.html')
+
+
+@app.route('/begin')
+def start_list():
+    session['responses'] = []
+    return redirect('/questions/0')
 
 
 @app.route('/questions/<quest_num>')
@@ -37,7 +44,9 @@ def answer():
     global current_page
     current_page += 1
     answer = request.args["question-form"]
+    responses = session['responses']
     responses.append(answer)
+    session['responses'] = responses
     return redirect('/questions/' + str(current_page))
 
 
