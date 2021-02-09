@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/static/base.css" />
+    <link rel="stylesheet" href="/static/{{css}}" />
+  </head>
+  <body>
+    <nav class="nav-container container-row center">
+      <div class="logo">
+        <a href="/"
+          ><img
+            src="https://1.bp.blogspot.com/-L_jUlleCsuc/VcHRQw7ONnI/AAAAAAAAyvo/AznzDBKNAXM/s1600/Boggle_Logo_PR_150804_6PM_CET_1438705029.png"
+            alt="boggle-logo"
+            id="boggle-logo"
+          />
+        </a>
+      </div>
+    </nav>
+    {% block content %}{% endblock %}
+    <div class="built-by-container container-row center">
+      <p>Built by: Jacob Andes, Springboard Software Engineering Student</p>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    {% block javascript %}{% endblock %}
+  </body>
+</html>

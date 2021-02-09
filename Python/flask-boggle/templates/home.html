@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% block title %}Welcome to Boggle!{% endblock %} {%
+block content %}
+<div class="homepage container-row">
+  <div class="homepage-container container-column smoketext">
+    <p>
+      Click the 'Start New Game' button to begin, or click on the Rules/Gameplay
+      link to see how to play!
+    </p>
+    <div class="container home-buttons">
+      <a href="/game"><button>Start New Game</button></a>
+      <a href="/rules-gameplay"><button>Rules and Gameplay</button></a>
+    </div>
+  </div>
+</div>
+{% endblock %}

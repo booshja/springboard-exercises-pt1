@@ -1,0 +1,148 @@
+/***** Game Board Page Styling *****/
+
+/*** Game Board Element ***/
+.game-container {
+  /* Container for the body of the game page */
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.board-container {
+  /* container for the board displaying the letters */
+  height: 400px;
+  width: 400px;
+  margin-right: 50px;
+}
+
+.row-container {
+  /* Each row of the boggle board */
+  height: 20%;
+  width: 100%;
+}
+
+.letter-tile {
+  /* Div for each die in the boggle board */
+  height: 95%;
+  border: 2px solid black;
+  border-radius: 15px;
+  background-color: rgb(197, 194, 194);
+  font-weight: bold;
+  color: black;
+}
+
+.letter-tile h1 {
+  /* Character on each die in boggle board */
+  font-size: 45px;
+}
+/*** Game Board Element End ***/
+
+/*** Timer Element ***/
+.timer-container {
+  /* container for timer element */
+  color: orangered;
+  height: 100px;
+  width: 75px;
+  align-items: center;
+}
+
+.timer-container h3 {
+  /* Headline - "Timer:" */
+  font-size: 35px;
+  height: 50%;
+  margin: 0;
+  padding: 0;
+}
+
+.timer-container h5 {
+  /* The clock element of the timer */
+  font-size: 17px;
+  height: 30%;
+  margin-top: 10px;
+  margin-bottom: 0;
+  padding: 0;
+}
+/*** Timer Element End ***/
+
+/* ******************** */
+
+/*** Word Entry Form Container ***/
+.words-form-container form {
+  align-items: center;
+}
+
+.words-form-container button {
+  margin-top: 10px;
+}
+/*** Word Entry Form Container End ***/
+
+/*** Center Column Div ***/
+.center-column {
+  /* Column containing Timer, Word entry form, Start new game button */
+  justify-content: space-evenly;
+  align-items: center;
+}
+/*** Center Column Div End ***/
+
+/* ******************** */
+
+/*** Words found element ***/
+.words-found-container {
+  /* Container for words found */
+  font-size: 20px;
+  margin-left: 50px;
+  color: lavenderblush;
+  width: 350px;
+  height: 300px;
+  align-items: center;
+}
+
+.words-found-container h2 {
+  /* Headline for words found element */
+  font-weight: bold;
+  text-decoration: underline;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.words-found-container p {
+  /* Words in the words found element */
+  margin-top: 0;
+  margin-left: 10px;
+  width: 80%;
+}
+/*** End Words Found Element ***/
+
+/* ******************** */
+
+/*** Word Results Display Div ***/
+.results-display {
+  /* Styling for the container */
+  font-size: 17px;
+  width: 350px;
+  height: 80px;
+  margin-left: 50px;
+}
+
+.results-display p {
+  /* Styling for the message display text */
+  margin: 18px 10px;
+}
+
+.success {
+  color: rgb(36, 224, 36);
+}
+
+.oops {
+  color: rgb(255, 0, 0);
+}
+/*** Word Results Display Div End ***/
+
+/* ******************** */
+
+/*** Right Column Div ***/
+.right-column {
+  justify-content: space-between;
+}
+/*** Right Column Div End ***/
+
+/***** End Game Board Page Styling *****/

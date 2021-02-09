@@ -1,0 +1,58 @@
+{% extends 'base.html' %} {% block title%}boggle boggle boggle boggle{% endblock
+%} {%block content %}
+<nav class="scores-nav">
+  <div class="scores-nav-container container-row center">
+    <div class="scores container-row">
+      <h3 id="current-score">Current Score: <span id="score">0</span></h3>
+      <h3 id="games-played">Games Played: <span id="games">{{games}}</span></h3>
+      <h3 id="high-score">
+        High Score: <span id="top-score">{{high_score}}</span>
+      </h3>
+    </div>
+    <div class="nav-links">
+      <a href="/rules-gameplay">Rules / Gameplay</a>
+    </div>
+  </div>
+</nav>
+<div class="game-container container-row">
+  <div class="board-container container-row border smoketext">
+    {% for row in session['board'] %}
+    <div class="row-container">
+      {% for letter in row %}
+      <div class="letter-tile container-row center">
+        <h1>{{letter}}</h1>
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+  <div class="center-column container-column">
+    <div class="timer-container border container-column">
+      <h5>
+        <u><b>Timer:</b></u>
+      </h5>
+      <h3 id="timer">60</h3>
+    </div>
+    <div class="words-form-container">
+      <form action="" class="container-column">
+        <input type="text" placeholder="Enter word here" id="word-guess" />
+        <button id="word-submit">Submit</button>
+      </form>
+    </div>
+    <div class="new-game-btn">
+      <a href="/game"><button>Start New Game</button></a>
+    </div>
+  </div>
+  <div class="right-column container-column">
+    <div class="words-found-container border container-column">
+      <h2>Words Found:</h2>
+      <p class="found-words" id="found-words"></p>
+    </div>
+    <div id="results-display" class="results-display border smoketext">
+      <p id="results"></p>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block javascript %}
+<script src="/static/app.js"></script>
+{% endblock %}

@@ -1,0 +1,90 @@
+/***** Base CSS Styling *****/
+
+/*** Top Logo Navbar ***/
+.nav-container {
+  background-color: rgb(255, 126, 5);
+  height: 100px;
+  width: 100%;
+}
+
+img {
+  height: 100px;
+  width: 240px;
+}
+/*** End Top Logo Navbar Styling ***/
+
+/* ******************** */
+
+/*** Scores and Rules Link Lower Navbar ***/
+.scores-nav-container {
+  background-color: rgb(207, 100, 0);
+  height: 50px;
+  width: 100%;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.scores {
+  width: 650px;
+  justify-content: space-evenly;
+}
+
+.scores-nav-container h3 {
+  width: 175px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.scores-nav-container a {
+  font-size: 15px;
+}
+/*** End lower Navbar Styling ***/
+
+/* ********************* */
+
+/*** Built By Element ***/
+.built-by-container p {
+  /* Text at the bottom of the page */
+  color: rgb(177, 177, 177);
+  font-size: 10px;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+/* ********************* */
+
+/*** Overall Body Styling ***/
+body {
+  background-color: black;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+.container-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.border {
+  border: 4px solid rgb(207, 100, 0);
+  border-radius: 8px;
+}
+
+.center {
+  align-items: center;
+  justify-content: center;
+}
+
+.smoketext {
+  color: whitesmoke;
+}
+
+/*** End Overall Body Styling ***/
+
+/***** End Base CSS Styling *****/

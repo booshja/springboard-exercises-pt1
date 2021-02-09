@@ -1,0 +1,28 @@
+/***** Landing/Home Page Styling *****/
+
+/*** Homepage ***/
+.homepage {
+  /* Container for the homepage body */
+  justify-content: center;
+}
+
+.homepage-container {
+  /* Contents of the homepage */
+  flex-basis: 60%;
+  align-items: center;
+}
+
+.homepage-container p {
+  /* Headline styling */
+  margin-top: 75px;
+}
+
+.home-buttons button {
+  /* Styling for the buttons */
+  margin: 75px 20px;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+/*** End Homepage ***/
+
+/***** End Landing/Home Page Styling *****/

@@ -1,0 +1,17 @@
+/***** Rules Page Styling *****/
+.rules-page {
+  /* Page styling */
+  justify-content: center;
+}
+
+.rules-text {
+  /* Paragraph Text */
+  flex-basis: 60%;
+}
+
+.rules-text h1 {
+  /* Rules headline */
+  text-decoration: underline;
+  align-self: center;
+}
+/***** End Rules Page Styling *****/
