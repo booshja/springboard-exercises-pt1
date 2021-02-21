@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Users List{% endblock %}
+
+{% block page_name %} Users {% endblock %}
+
+{% block content %}
+{% if users == None %}
+<h3 class="fs-4">No users found!</h3>
+{% else %}
+<ul>
+    {% for u in users %}
+    <li><a href="/users/{{u.id}}">{{u.full_name}}</li>
+        {% endfor %}
+</ul>
+{% endif %}
+<a class="btn btn-secondary" href="/users/new" role="button">Add user</a>
+{% endblock %}
