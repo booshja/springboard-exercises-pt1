@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% block title %}{{post.title}}{% endblock %} {% block
+page_name %} {{post.title}} {% endblock %} {% block content %}
+<p>{{post.content}}</p>
+<h5 class="fst-italic fw-normal">By {{user.full_name}}</h5>
+<form>
+  <button
+    formaction="/users/{{user.id}}"
+    formmethod="GET"
+    class="btn btn-outline-primary"
+  >
+    Cancel
+  </button>
+  <button
+    formaction="/posts/{{post.id}}/edit"
+    formmethod="GET"
+    class="btn btn-primary"
+  >
+    Edit
+  </button>
+  <button
+    formaction="/posts/{{post.id}}/delete"
+    formmethod="POST"
+    class="btn btn-danger"
+  >
+    Delete
+  </button>
+</form>
+{% endblock %}

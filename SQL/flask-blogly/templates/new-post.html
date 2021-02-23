@@ -1,0 +1,35 @@
+{% extends 'base.html' %} {% block title %}New Post{% endblock %} {% block
+page_name %} Add Post for {{user.full_name}} {% endblock %} {% block content %}
+<form action="/users/{{user.id}}/posts/new" , method="POST">
+  <div class="container row col-6 justify-content-start">
+    <div class="row">
+      <label for="title-field">Title: </label>
+      <input
+        type="text"
+        placeholder="Enter Title Here"
+        id="title-field"
+        name="title"
+      />
+    </div>
+    <div class="row">
+      <label for="content-field">Content: </label>
+      <textarea
+        type="text"
+        placeholder="Enter content here!"
+        id="content-field"
+        name="content"
+      ></textarea>
+    </div>
+    <div class="row justify-content-end">
+      <div class="col-2 my-2 mx-4">
+        <a href="/users/{{user.id}}" role="button" class="btn btn-info"
+          >Cancel</a
+        >
+      </div>
+      <div class="col-2 my-2 mx-3">
+        <button type="submit" class="btn btn-success">Add</button>
+      </div>
+    </div>
+  </div>
+</form>
+{% endblock %}

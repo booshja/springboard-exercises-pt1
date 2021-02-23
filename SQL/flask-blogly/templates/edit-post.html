@@ -1,0 +1,36 @@
+{% extends 'base.html' %} {% block title %}Edit {{post.title}}{% endblock %} {%
+block page_name %} Edit {{post.title}} {% endblock %} {% block content %}
+<form action="/posts/{{post.id}}/edit" method="POST">
+  <div class="container row col-6 justify-content-start">
+    <div class="row">
+      <label for="title-field">Title: </label>
+      <input
+        type="text"
+        placeholder="Enter Title Here"
+        id="title-field"
+        name="title"
+        value="{{post.title}}"
+      />
+    </div>
+    <div class="row">
+      <label for="content">Content: </label>
+      <textarea placeholder="Enter content here!" id="content" name="content">
+{{post.content}}</textarea
+      >
+    </div>
+    <div class="row justify-content-end">
+      <div class="col-2 my-2">
+        <a
+          href="/users/{{post.user_id}}"
+          role="button"
+          class="btn btn-outline-primary"
+          >Cancel</a
+        >
+      </div>
+      <div class="col-2 my-2">
+        <button type="submit" class="btn btn-success">Edit</button>
+      </div>
+    </div>
+  </div>
+</form>
+{% endblock %}
