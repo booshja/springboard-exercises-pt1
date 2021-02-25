@@ -23,6 +23,9 @@ class User(db.Model):
     image_url = db.Column(
         db.Text, nullable=False, default=DEFAULT_IMG_URL)
 
+    posts = db.relationship("Post", backref="user",
+                            cascade="all, delete-orphan")
+
     @classmethod
     def default_img_url(self):
         """Returns default image url"""
@@ -39,7 +42,7 @@ class User(db.Model):
         return f'{self.first_name} {self.last_name}'
 
     def __repr__(self):
-        """Shows a human-readable representation of the User instance"""
+        """Creates a better readable display of the User instance"""
         p = self
         return f"<User id={p.id} first_name={p.first_name} last_name={p.last_name} image_url={p.image_url}>"
 
@@ -56,7 +59,34 @@ class Post(db.Model):
                            default=datetime.datetime.now)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
+    tags = db.relationship('Tag', secondary='posts_tags',
+                           cascade='all, delete', backref='posts')
+
     def __repr__(self):
-        """Shows a human-readable representation of the Post instance"""
+        """Creates a better readable display of the Post instance"""
         p = self
-        return f"<Post id={p.id} title={p.title} created_at={p.created_at} user_id={p.user_id}"
+        return f'<Post id={p.id} title={p.title} created_at={p.created_at} user_id={p.user_id}'
+
+
+class PostTag(db.Model):
+    """Join Table for Post and Tag"""
+
+    __tablename__ = 'posts_tags'
+
+    post_id = db.Column(db.Integer, db.ForeignKey(
+        'posts.id'), primary_key=True)
+    tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'), primary_key=True)
+
+
+class Tag(db.Model):
+    """Tags for posts"""
+
+    __tablename__ = 'tags'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.Text, unique=True, nullable=False)
+
+    def __repr__(self):
+        """Creates a better readable display of the Tag instance"""
+        t = self
+        return f'<Tag id={t.id} name={t.name}>'

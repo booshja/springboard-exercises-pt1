@@ -2,7 +2,7 @@
 page_name %} User Detail {% endblock %} {% block content %}
 
   <div class="row">
-    <div class="px-2 col-3">
+    <div class="px-2 col-2">
       <img
         src="{{user.image_url}}"
         alt="Profile Picture"
@@ -14,14 +14,14 @@ page_name %} User Detail {% endblock %} {% block content %}
       <div class="row">
         <h2 class="fs-2">{{user.full_name}}</h2>
       </div>
-      <div class="row container">
+      <div class="row container gx-0">
         <form class="row">
           <div class="col-1">
             <button formaction="/users/{{user.id}}/edit" class="btn btn-primary" formmethod="GET"
               >Edit</button
             >
           </div>
-          <div class="col">
+          <div class="col gx-0">
             <button formaction="/users/{{user.id}}/delete" class="btn btn-danger" formmethod="POST"
               >Delete</button
             >
@@ -42,7 +42,7 @@ page_name %} User Detail {% endblock %} {% block content %}
         </ul>
       </div>
       <div class="row px-2">
-        <a href="/users/{{user.id}}/posts/new" class="btn btn-primary col-3" role="button">Add Post</a>
+        <a href="/users/{{user.id}}/posts/new" class="btn btn-primary col-2" role="button">Add Post</a>
       </div>
     </div>
   </div>

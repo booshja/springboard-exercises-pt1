@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block title %}New Tag{% endblock %} {% block
+page_name %} Create a tag {% endblock %} {% block content %}
+<form class="container row col-5">
+  <div class="container row py-3 justify-content-start">
+    <label for="tag_name">Name:</label>
+    <input
+      type="text"
+      id="tag_name"
+      name="tag_name"
+      placeholder="Enter a name for the tag"
+    />
+  </div>
+  <div class="row justify-content-end">
+    <div class="col-2">
+      <button formaction="/tags" formmethod="GET" class="btn btn-outline-info">
+        Cancel
+      </button>
+    </div>
+    <div class="col-2">
+      <button formaction="/tags/new" formmethod="POST" class="btn btn-success">
+        Add
+      </button>
+    </div>
+  </div>
+</form>
+{% endblock %}

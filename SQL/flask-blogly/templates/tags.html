@@ -1,0 +1,11 @@
+{% extends 'base.html' %} {% block title %}Tags List{% endblock %} {% block
+page_name %} Tags {% endblock %} {% block content %}
+<ul>
+  {% if tags != None %} {% for tag in tags%}
+  <li><a href="/tags/{{tag.id}}">{{tag.name}}</a></li>
+  {% endfor %} {% else %}
+  <li>No tags to display!</li>
+  {% endif %}
+</ul>
+<a href="/tags/new" role="button" class="btn btn-primary">Add Tag</a>
+{% endblock %}

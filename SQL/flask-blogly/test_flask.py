@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from app import app
-from models import db, User
+from models import db, User, Post
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly_db_test'
 app.config['SQLALCHEMY_ECHO'] = False
@@ -12,8 +12,8 @@ db.drop_all()
 db.create_all()
 
 
-class UserModelTestCase(TestCase):
-    """Tests for model for Users"""
+class FlaskTestCase(TestCase):
+    """Tests for Flask"""
 
     def setUp(self):
         """Add sample user"""
@@ -21,12 +21,13 @@ class UserModelTestCase(TestCase):
 
         user = User(first_name="John", last_name="Johnson",
                     image_url="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/SNice.svg/1200px-SNice.svg.png")
-        db.session.add(user)
-        db.session.commit()
         self.user_id = user.id
 
+        db.session.add(user)
+        db.session.commit()
+
     def tearDown(self):
-        """Clean up any leftover users"""
+        """Clean up any leftover commits"""
         db.session.rollback()
 
     def test_home_page_redirect(self):
@@ -107,10 +108,11 @@ class UserModelTestCase(TestCase):
             self.assertEqual(resp.status_code, 200)
             self.assertIn('value="Johnson"', html)
 
-    def test_user_edit_post(self):
+    def test_delete_user(self):
         """
         TESTS:
-        -
+        -Page is displayed with correct status code
+        -The user has been deleted from the user list
         """
         with app.test_client() as client:
             resp = client.post(
@@ -119,3 +121,32 @@ class UserModelTestCase(TestCase):
 
             self.assertEqual(resp.status_code, 200)
             self.assertNotIn("John Johnson", html)
+
+    def test_new_post_page(self):
+        """
+        TESTS:
+        -Page is displayed with correct status code
+        """
+        with app.test_client() as client:
+            resp = client.get(f'/users/{self.user_id}/posts/new')
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn(
+                ' <label for="content-field">Content: </label>', html)
+
+    def test_new_post_execution(self):
+        """
+        TESTS:
+        -Page is displayed with correct status code
+        -New story submitted is in list of stories
+        """
+        data = {"title": "I love dogs",
+                "content": "They're so great aren't they? Plus they're real cute and fun to have around. It's always interesting!"}
+        with app.test_client() as client:
+            resp = client.post(
+                f'/users/{self.user_id}/posts/new', data=data, follow_redirects=True)
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn("I love dogs", html)
