@@ -183,8 +183,9 @@ def edit_post(post_id):
     -Show button to cancel (redirects to user detail page)
     """
     post = Post.query.get_or_404(post_id)
+    tags = Tag.query.all()
 
-    return render_template('edit-post.html', post=post)
+    return render_template('edit-post.html', post=post, tags=tags)
 
 
 @app.route('/posts/<int:post_id>/edit', methods=["POST"])
@@ -195,8 +196,12 @@ def post_edited(post_id):
     -Redirect back to the post view
     """
     post = Post.query.get_or_404(post_id)
+    post_tags = [int(num) for num in request.form.getlist('tags-added')]
+    tags = Tag.query.filter(Tag.id.in_(post_tags)).all()
+
     post.title = request.form['title']
     post.content = request.form['content']
+    post.tags = tags
 
     db.session.add(post)
     db.session.commit()

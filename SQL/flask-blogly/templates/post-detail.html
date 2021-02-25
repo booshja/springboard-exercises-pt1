@@ -3,9 +3,8 @@ page_name %} {{post.title}} {% endblock %} {% block content %}
 <p>{{post.content}}</p>
 <h5 class="fst-italic fw-normal fs-5">By {{user.full_name}}</h5>
 <h5 class="fst-italic fw-bold fs-6 py-2">
-  Tags: {% if post.tags %}{% for tag in post.tags %}<span
-    class="badge rounded-pill bg-primary"
-    >{{tag.name}}</span
+  Tags: {% if post.tags %}{% for tag in post.tags %}<a href="/tags/{{tag.id}}"
+    ><i class="badge rounded-pill bg-primary py-2 mx-1">{{tag.name}}</i></a
   >{% endfor %}{% else %}None assigned!{% endif %}
 </h5>
 <form>
