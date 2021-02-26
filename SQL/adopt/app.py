@@ -1,4 +1,4 @@
-from Flask import Flask, request, render_template, redirect, flash
+from flask import Flask, request, render_template, redirect, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from forms import AddPetForm
 from models import db, connect_db, Pet
@@ -23,10 +23,11 @@ def home_page():
     -List pets and their photos and availability, if present
     """
     pets = Pet.query.all()
-    return render_template('home.html', pets=pets)
+
+    return render_template('home.html', pets=pets or None)
 
 
-@app.route('/add', method=['GET', 'POST'])
+@app.route('/add', methods=['GET', 'POST'])
 def add_pet():
     """
     GET ROUTE:

@@ -1,7 +1,16 @@
 ToDo:
 
-1. Make the UI for the homepage displaying pets
-    -Bootstrap Card
+1. Getting an error when loading the page about table not existing.
+    -Fix it!
+2. Finish the UI for the homepage displaying pets
+    -Bootstrap Cards
         -Pet name in green
         -"I'm Available!" under pet name in bold
-2.
+3. Check AddPetForm page for styling
+4. Check the handler for AddPetForm
+5. Step 5 - Add validation
+    -Species should be 'cat', 'dog', or 'porcupine'
+    -Photo URL ust be a real URL
+        -Still should be optional
+    -Pet age should be between 0 and 30
+        -Still should be optional
