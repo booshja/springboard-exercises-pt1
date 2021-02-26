@@ -1,0 +1,51 @@
+{% extends 'base.html' %}{% block title %}Welcome to the Adoption Agency{%
+endblock %} {% block content %}
+<div class="container pb-4">
+  <div class="row py-4 justify-content-center">
+    <div class="card col-8">
+      <img src="{{pet.photo_url}}" class="card-img-top" alt="Pet Picture" />
+      <div class="card-body">
+        <h5 class="card-title text-success">{{pet.name}}</h5>
+        {% if pet.notes != None %}
+        <p class="card-text">{{pet.notes}}</p>
+        {% endif %}
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Species: {{pet.species}}</li>
+        <li class="list-group-item">Age: {{pet.age}}</li>
+      </ul>
+    </div>
+  </div>
+  <!-- This is the add pet form copy/pasted -->
+  <div class="container">
+    <h1 class="display-4 text-center">Edit {{pet.name}}</h1>
+    <div class="row justify-content-center">
+      <div class="col-8 container">
+        <form action="/{{pet.id}}" method="POST">
+          {{form.hidden_tag()}}
+          <div class="form-group">
+            {{form.url.label}} {{form.url(class_='form-control')}} {% for err in
+            form.url.errors %}
+            <small class="form-text text-danger">{{err}}</small>
+            {% endfor %}
+          </div>
+          <div class="form-group">
+            {{form.notes.label}} {{form.notes(class_='form-control')}} {% for
+            err in form.notes.errors %}
+            <small class="form-text text-danger">{{err}}</small>
+            {% endfor %}
+          </div>
+          <div class="form-group row">
+            {{form.available.label}} {{form.available(class_='form-control')}}
+            {% for err in form.available.errors %}
+            <small class="form-text text-danger">{{err}}</small>
+            {% endfor %}
+          </div>
+          <button class="btn btn-success">Submit</button>
+          <a href="/" class="btn btn-outline-info">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,6 +1,6 @@
-from flask import Flask, request, render_template, redirect, flash
+from flask import Flask, render_template, redirect
 from flask_debugtoolbar import DebugToolbarExtension
-from forms import AddPetForm
+from forms import AddPetForm, EditPetForm
 from models import db, connect_db, Pet
 
 
@@ -45,8 +45,8 @@ def add_pet():
     if form.validate_on_submit():
         name = form.pet_name.data
         species = form.species.data
-        age = form.age.data
-        url = form.species.data or None
+        age = form.age.data or None
+        url = Pet.check_url(form.url.data)
         notes = form.notes.data or None
 
         pet = Pet(name=name, species=species,
@@ -55,8 +55,41 @@ def add_pet():
         db.session.add(pet)
         db.session.commit()
 
-        flash("New Pet Added!")
-
         return redirect('/')
     else:
-        return render_template('/add', form=form)
+        return render_template('add_pet.html', form=form)
+
+
+@app.route('/<pet_id>', methods=['GET', 'POST'])
+def pet_display_edit(pet_id):
+    """
+    GET ROUTE:
+    -Show pet details
+    -Show form to edit pet details
+
+    POST ROUTE:
+    -Validate form
+    -If no validation, re-render page
+    -If validated:
+        -Update the pet data
+        -Redirect to the get route for '/<pet_id>'
+    """
+    form = EditPetForm()
+
+    pet = Pet.query.get_or_404(pet_id)
+
+    if form.validate_on_submit():
+        url = Pet.check_url(form.url.data)
+        notes = form.notes.data or None
+        available = form.available.data
+
+        pet.photo_url = url
+        pet.notes = notes
+        pet.available = available
+
+        db.session.add(pet)
+        db.session.commit()
+
+        return redirect(f'/{pet_id}')
+    else:
+        return render_template('display_edit_form.html', form=form, pet=pet)

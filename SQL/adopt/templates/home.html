@@ -1,25 +1,29 @@
 {% extends 'base.html' %}{% block title %}Welcome to the Adoption Agency{%
 endblock %} {% block content %}
-<h1>Adoption Agency</h1>
-{% if pets == None %}
-<p>
-  No pets to adopt currently! To add one, use the link in the top navigation
-  bar.
-</p>
-{% else %}
-<p>Take a look at our available pets!</p>
-<div class="card-deck">
-  {% for pet in pets %}
-  <div class="card text-center" style="width: 18rem">
-    <img src="{{pet.photo_url}}" class="card-img-top" alt="Pet Image" />
-    <div class="card-body">
-      <h5 class="card-title">{{pet.name}}</h5>
-      {% if pet.available == True %}
-      <p class="card-text fw-bold fst-italic">"I'm available!"</p>
-      {% endif %}
-      <a href="/{{pet.id}}" class="btn btn-success">Check Me Out!</a>
+<div class="container mt-5" id="content">
+  {% if pets == None %}
+  <h1 class="fs-3 text-center">
+    No pets to adopt currently! To add one, use the link in the top navigation
+    bar.
+  </h1>
+  {% else %}
+  <h1 class="fs-3 text-center">Take a look at our available pets!</h1>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
+    {% for pet in pets %}
+    <div class="col my-3">
+      <div class="card text-center border-dark">
+        <img src="{{pet.photo_url}}" class="card-img-top" alt="Pet Image" />
+        <div class="card-body">
+          <h5 class="card-title text-success">{{pet.name}}</h5>
+          {% if pet.available == True %}
+          <p class="card-text"><b>I'm available!</b></p>
+          {% endif %}
+          <a href="/{{pet.id}}" class="btn btn-success">Check Me Out!</a>
+        </div>
+      </div>
     </div>
+    {% endfor %}
   </div>
-  {% endfor %}
+  {% endif %}
 </div>
-{% endif %} {% endblock %}
+{% endblock %}

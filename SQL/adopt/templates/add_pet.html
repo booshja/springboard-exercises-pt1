@@ -1,20 +1,21 @@
 {% extends 'base.html' %}{% block title %}Welcome to the Adoption Agency{%
 endblock %} {% block content %}
 <div class="container">
-  <h1 class="display-1 text-center">Add A New Pet</h1>
+  <h1 class="display-3 text-center">Add A New Pet</h1>
   <div class="row justify-content-center">
     <div class="col-8">
       <form action="/add" method="POST">
         {{form.hidden_tag()}} {% for field in form if field.widget.input_type !=
         'hidden' %}
         <div class="form-group">
-            {{field.label}} {{field(class_='form-control')}}{% for err in field.errors %}
-            <small class="form-text text-danger">{{err}}</small>
-            {% endfor %}
+          {{field.label}} {{field(class_='form-control')}}{% for err in
+          field.errors %}
+          <small class="form-text text-danger">{{err}}</small>
+          {% endfor %}
         </div>
         {% endfor %}
-        <button class="btn btn-success btn-lg">Submit</button>
-        <a href="/" class="btn btn-outline-info btn-lg">
+        <button class="btn btn-success">Submit</button>
+        <a href="/" class="btn btn-outline-info">Cancel</a>
       </form>
     </div>
   </div>

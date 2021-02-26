@@ -1,3 +1,4 @@
+from Git.SQL.adopt.app import DEFAULT_IMAGE_URL
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -14,6 +15,8 @@ class Pet(db.Model):
 
     __tablename__ = 'pets'
 
+    DEFAULT_IMAGE_URL = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Dog_silhouette.svg/1200px-Dog_silhouette.svg.png'
+
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.Text, nullable=False)
     species = db.Column(db.Text, nullable=False)
@@ -21,3 +24,12 @@ class Pet(db.Model):
     age = db.Column(db.Integer)
     notes = db.Column(db.Text)
     available = db.Column(db.Boolean, default=True)
+
+    @classmethod
+    def check_url(input_url):
+        """Check to see if the URL is None, if so, return default url"""
+
+        if input_url == None:
+            return DEFAULT_IMAGE_URL
+        else:
+            return input_url
