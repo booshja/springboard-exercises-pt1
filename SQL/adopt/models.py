@@ -1,7 +1,8 @@
-from Git.SQL.adopt.app import DEFAULT_IMAGE_URL
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
+
+DEFAULT_IMAGE_URL = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Dog_silhouette.svg/1200px-Dog_silhouette.svg.png'
 
 
 def connect_db(app):
@@ -14,8 +15,6 @@ class Pet(db.Model):
     """A pet potentially available for adoption"""
 
     __tablename__ = 'pets'
-
-    DEFAULT_IMAGE_URL = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Dog_silhouette.svg/1200px-Dog_silhouette.svg.png'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.Text, nullable=False)
