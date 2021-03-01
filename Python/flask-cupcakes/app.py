@@ -55,12 +55,10 @@ def create_cupcake():
     -Respond with JSON
         - {cupcake: {id, flavor, size, rating, image}}
     """
-    flavor = request.json.get('flavor')
-    size = request.json.get('size')
-    rating = request.json.get('rating')
-    image = request.json.get('image')
+    req = request.json
 
-    new_cup = Cupcake(flavor=flavor, size=size, rating=rating, image=image)
+    new_cup = Cupcake(flavor=req['flavor'], size=req['size'],
+                      rating=req['rating'], image=req['image'] or None)
 
     db.session.add(new_cup)
     db.session.commit()
