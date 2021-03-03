@@ -13,11 +13,16 @@
     <title>{% block title %}{% endblock %}</title>
   </head>
   <body>
-    <nav class="navbar navbar-light bg-primary justify-content-between">
+    <nav class="navbar navbar-dark bg-secondary justify-content-between">
       <div class="container">
         <a href="/" class="navbar-brand text-light">Feedback</a>
         <ul class="nav navbar-nav flex-row float-right">
           {% if session['username'] %}
+          <li class="nav-item">
+            <a href="/users/{{username}}" class="nav-link px-3 text-light"
+              >{{username}}</a
+            >
+          </li>
           <li class="nav-item">
             <a href="/logout" class="nav-link pr-3 text-light">Logout</a>
           </li>
@@ -32,6 +37,12 @@
         </ul>
       </div>
     </nav>
-    {% block content %}{% endblock %}
+    <div class="container">
+      {% for category, msg in get_flashed_messages(with_categories=True) %}
+      <div class="row justify-content-center my-4">
+        <div class="alert alert-{{category}} col-6">{{msg}}</div>
+      </div>
+      {% endfor %} {% block content %}{% endblock %}
+    </div>
   </body>
 </html>

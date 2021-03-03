@@ -23,3 +23,11 @@ class LoginForm(FlaskForm):
         'Username cannot be left blank')])
     password = PasswordField('Password', validators=[
         InputRequired('Password cannot be left blank')])
+
+
+class FeedbackForm(FlaskForm):
+    """Form for user feedback"""
+    title = StringField('Title', validators=[
+                        InputRequired('Title cannot be left blank')])
+    content = StringField('Feedback', validators=[
+                          InputRequired('Feedback cannot be left blank')])
