@@ -1,0 +1,31 @@
+{% extends 'base.html' %} {% block title %}{{user.username}}{% endblock %} {%
+block content %}
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <h1 class="display-5 text-center">User Detail:</h1>
+    <div class="col-6">
+      <table class="table table-bordered">
+        <thead></thead>
+        <tbody>
+          <tr>
+            <th scope="row">Username:</th>
+            <td>{{user.username}}</td>
+          </tr>
+          <tr>
+            <th scope="row">First Name:</th>
+            <td>{{user.first_name}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Last Name:</th>
+            <td>{{user.last_name}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Email:</th>
+            <td>{{user.email}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
