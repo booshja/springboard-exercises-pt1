@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, flash, redirect, session, g
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 
-from forms import UserAddForm, LoginForm, MessageForm
+from forms import UserAddForm, LoginForm, MessageForm, UserEditForm
 from models import db, connect_db, User, Message
 
 CURR_USER_KEY = "curr_user"
@@ -211,11 +211,37 @@ def stop_following(follow_id):
     return redirect(f"/users/{g.user.id}/following")
 
 
-@app.route('/users/profile', methods=["GET", "POST"])
-def profile():
+@app.route('/users/profile/<int:user_id>', methods=["GET", "POST"])
+def profile(user_id):
     """Update profile for current user."""
 
-    # IMPLEMENT THIS
+    form = UserEditForm()
+    user = User.query.get_or_404(user_id)
+
+    if user.id != session[CURR_USER_KEY]:
+        flash("Access unauthorized.", "danger")
+        return redirect('/')
+
+    if form.validate_on_submit():
+        pwd = form.password.data
+
+        if User.authenticate(user.username, pwd):
+            user.username = form.username.data or user.username
+            user.email = form.email.data or user.email
+            user.image_url = form.image_url.data or user.image_url
+            user.header_image_url = form.header_image_url.data or user.header_image_url
+            user.bio = form.bio.data or user.bio
+
+            db.session.add(user)
+            db.session.commit()
+
+            flash("Profile updated!", "success")
+            return redirect(f'/users/{user.id}')
+        else:
+            flash("Incorrect password", "danger")
+            return redirect(f'/users/profile/{user.id}')
+    else:
+        return render_template('/users/edit.html', form=form, user=user)
 
 
 @app.route('/users/delete', methods=["POST"])
