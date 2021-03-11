@@ -2,16 +2,16 @@
 
 ## Pick Your Initial Project Ideas
 
-### 1. Beer Finder (most interested)
+### 1. SetlistPlaylist (most interested)
 
 Concept:
 
-> Say you've been wanting a specific beer - An old favorite, or something new you'd like to try. This site would let you search for your favorite, and then get directions to the nearest bar or restaurant that serves it! You also would have the ability to create a profile where you can save your favorite beers to quickly be able to access them later on.
+> First - You've recently been to a concert you enjoy, or you're thinking back on a show you've been to in the past. You really enjoyed that band's set, and would like to relive the experience through the music. The app would take your favorite bands, and list dates for shows. You pick a show, and the app will display the setlist from that show, and give you the option to push a playlist to your spotify account of that show. Second - You've got a concert coming up, and you want to get a feel for what that band plays when they're touring, and based on what's popular at the moment. The app would allow you to pick that band, and it would generate and push that playlist to your spotify account to get you ready for the show! Pushing the playlists to the user's spotify account will be run through spotify's authorization, users will have to authorize access to their account that the app would route through spotify's api.
 >
 > > APIs:
 > >
-> > - [Untappd API](https://untappd.com/api/docs#start) - Beer data and where it's served
-> > - [Mapquest API](https://developer.mapquest.com/) - Geolocation and Directions
+> > - [Spotify API](https://developer.spotify.com/documentation/web-api/) - Spotify, links to songs, access to the user's account to create the playlists (API Key already received)
+> > - [setlist.fm API](https://api.setlist.fm/docs/1.0/index.html) - Setlists and Shows (API Key already received)
 
 ### 2. Cocktail Recipe Finder
 
