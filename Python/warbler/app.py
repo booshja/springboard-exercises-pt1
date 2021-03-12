@@ -331,7 +331,7 @@ def add_like(msg_id):
         return redirect('/login')
 
 
-@app.route('/users/remove_like/<int: msg_id>', methods=["POST"])
+@app.route('/users/remove_like/<int:msg_id>', methods=["POST"])
 def remove_like(msg_id):
     """Process removing a like from a warble for the user"""
 
@@ -368,8 +368,9 @@ def homepage():
                     .filter(Message.user_id.in_(following_ids))
                     .limit(100)
                     .all())
+        likes = user.likes
 
-        return render_template('home.html', messages=messages)
+        return render_template('home.html', messages=messages, likes=likes)
 
     else:
         return render_template('home-anon.html')
