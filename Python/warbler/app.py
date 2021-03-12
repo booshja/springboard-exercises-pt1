@@ -5,7 +5,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 
 from forms import UserAddForm, LoginForm, MessageForm, UserEditForm
-from models import db, connect_db, User, Message
+from models import db, connect_db, User, Message, Likes
 
 CURR_USER_KEY = "curr_user"
 
@@ -308,6 +308,26 @@ def messages_destroy(message_id):
 
     return redirect(f"/users/{g.user.id}")
 
+
+##############################################################################
+# Likes processing routes:
+
+
+@app.route('/users/add_like/<int: msg_id>', methods=["POST"])
+def add_like(msg_id):
+    """Process adding a like to a warble for the user"""
+
+    if g.user:
+        user = User.get_or_404(g.user.id)
+        like = Likes(user_id=user.id, message_id=msg_id)
+
+        db.session.add(like)
+        db.session.commit()
+
+        return render_template('home.html')
+    else:
+        flash("You must be logged in to do this!", "danger")
+        return redirect('/login')
 
 ##############################################################################
 # Homepage and error pages
