@@ -26,11 +26,15 @@ class Follows(db.Model):
         primary_key=True,
     )
 
+    def __repr__(self):
+        """A more readable representation of the instance"""
+        return f'<Follow user_being_followed_id={self.user_being_followed_id} user_following_id={self.user_following_id}>'
+
 
 class Likes(db.Model):
     """Mapping user likes to warbles."""
 
-    __tablename__ = 'likes' 
+    __tablename__ = 'likes'
 
     id = db.Column(
         db.Integer,
@@ -47,6 +51,10 @@ class Likes(db.Model):
         db.ForeignKey('messages.id', ondelete='cascade'),
         unique=True
     )
+
+    def __repr__(self):
+        """A more readable representation of the instance"""
+        return f'<Like id={self.id} user_id={self.user_id} message_id={self.message_id}>'
 
 
 class User(db.Model):
@@ -116,18 +124,20 @@ class User(db.Model):
     )
 
     def __repr__(self):
-        return f"<User #{self.id}: {self.username}, {self.email}>"
+        return f"<User id={self.id} username={self.username} email={self.email}>"
 
     def is_followed_by(self, other_user):
         """Is this user followed by `other_user`?"""
 
-        found_user_list = [user for user in self.followers if user == other_user]
+        found_user_list = [
+            user for user in self.followers if user == other_user]
         return len(found_user_list) == 1
 
     def is_following(self, other_user):
         """Is this user following `other_use`?"""
 
-        found_user_list = [user for user in self.following if user == other_user]
+        found_user_list = [
+            user for user in self.following if user == other_user]
         return len(found_user_list) == 1
 
     @classmethod
@@ -198,6 +208,10 @@ class Message(db.Model):
     )
 
     user = db.relationship('User')
+
+    def __repr__(self):
+        """A more readable representation of the instance"""
+        return f'<Message id={self.id} text={self.text} timestamp={self.timestamp} user_id={self.user_id}>'
 
 
 def connect_db(app):

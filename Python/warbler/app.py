@@ -313,21 +313,38 @@ def messages_destroy(message_id):
 # Likes processing routes:
 
 
-@app.route('/users/add_like/<int: msg_id>', methods=["POST"])
+@app.route('/users/add_like/<int:msg_id>', methods=["POST"])
 def add_like(msg_id):
     """Process adding a like to a warble for the user"""
 
     if g.user:
-        user = User.get_or_404(g.user.id)
+        user = User.query.get_or_404(g.user.id)
         like = Likes(user_id=user.id, message_id=msg_id)
 
         db.session.add(like)
         db.session.commit()
 
-        return render_template('home.html')
+        flash("Warble liked!", "success")
+        return redirect('/')
     else:
         flash("You must be logged in to do this!", "danger")
         return redirect('/login')
+
+
+@app.route('/users/remove_like/<int: msg_id>', methods=["POST"])
+def remove_like(msg_id):
+    """Process removing a like from a warble for the user"""
+
+    if g.user:
+        user = User.query.get_or_404(g.user.id)
+        like = Likes.query.filter_by(
+            message_id=msg_id, user_id=user.id).first()
+
+        db.session.delete(like)
+        db.session.commit()
+
+        flash("Like removed.", "info")
+        return redirect('/')
 
 ##############################################################################
 # Homepage and error pages
