@@ -79,6 +79,8 @@ class UserModelTestCase(TestCase):
         TESTS:
         - is_following successfully detects when user1 is following user2
         - is_following successfully detects when user2 is not follwing user1
+        - is_followed_by successfully detects when user1 is followed by user2
+        - is_followed_by successfully detects when user2 is followed by user1
         """
         user_1 = User(email="test@test.com", username="testuser",
                       password="HASHED_PASSWORD")
@@ -97,18 +99,19 @@ class UserModelTestCase(TestCase):
         db.session.add(new_follow)
         db.session.commit()
 
-        follow = Follows.query.filter_by(
-            user_being_followed_id=user2.id).first()
-
         self.assertEqual(user1.is_following(user2), True)
+        self.assertEqual(user2.is_followed_by(user1), True)
         self.assertEqual(user2.is_following(user1), False)
+        self.assertEqual(user1.is_followed_by(user2), False)
 
     def test_user2_following_user1(self):
         """
-            TESTS:
-            - is_following successfully detects when user2 is following user1
-            - is_following successfully detects when user1 is not follwing user2
-            """
+        TESTS:
+        - is_following successfully detects when user2 is following user1
+        - is_following successfully detects when user1 is not follwing user2
+        - is_follwed_by successfully detects when user1 is followed by user2
+        - is_followed_by successfully detects when user2 is not followed by user1
+        """
         user_1 = User(email="test@test.com", username="testuser",
                       password="HASHED_PASSWORD")
         user_2 = User(email="krew@test.com", username="testkrew",
@@ -126,15 +129,45 @@ class UserModelTestCase(TestCase):
         db.session.add(new_follow)
         db.session.commit()
 
-        follow = Follows.query.filter_by(
-            user_being_followed_id=user2.id).first()
-
         self.assertEqual(user2.is_following(user1), True)
+        self.assertEqual(user1.is_followed_by(user2), True)
         self.assertEqual(user1.is_following(user2), False)
+        self.assertEqual(user2.is_followed_by(user1), False)
 
+    def test_user_signup_success(self):
+        """
+        TESTS:
+        - Does User.signup successfully create a new user given valid credentials?
+        """
+        user = User.signup(username="krew", email="krew@test.com",
+                           password="HASHED_PASSWORD", image_url=None)
 
-# Does User.create successfully create a new user given valid credentials?
-# Does User.create fail to create a new user if any of the validations(e.g. uniqueness, non-nullable fields) fail?
-# Does User.authenticate successfully return a user when given a valid username and password?
-# Does User.authenticate fail to return a user when the username is invalid?
-# Does User.authenticate fail to return a user when the password is invalid?
+        self.assertEqual(user.username, "krew")
+        self.assertEqual(user.email, "krew@test.com")
+
+    def test_user_signup_failure(self):
+        """
+        TESTS:
+        - Does User.signup fail to create a new user if any of the validations fail?
+        """
+        error = False
+        try:
+            user = User.signup(username="Ralph")
+        except:
+            error = True
+
+        self.assertEqual(error, True)
+
+    def test_authentication(self):
+        """
+        TESTS:
+        - Does User.authenticate successfully return a user when given a valid username and password?
+        - Does User.authenticate fail to return a user when the username is invalid?
+        """
+        user = User.signup(username="krew", email="krew@email.com",
+                           password="HASHED_PASSWORD", image_url=None)
+
+        self.assertEqual(User.authenticate(
+            username=user.username, password="HASHED_PASSWORD"), user)
+        self.assertEqual(User.authenticate(
+            username=user.username, password="wrong"), False)
