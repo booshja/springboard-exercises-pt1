@@ -6,20 +6,10 @@
 
 
 from app import app
-import os
 from unittest import TestCase
+from models import db, User, Follows
 
-from models import db, User, Message, Follows
-
-# BEFORE we import our app, let's set an environmental variable
-# to use a different database for tests (we need to do this
-# before we import our app, since that will have already
-# connected to the database
-
-os.environ['DATABASE_URL'] = "postgresql:///warbler-test"
-
-
-# Now we can import app
+app.config['DATABASE_URL'] = "postgresql:///warbler-test"
 
 
 # Create our tables (we do this here, so we only create the tables
