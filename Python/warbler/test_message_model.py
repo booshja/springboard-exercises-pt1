@@ -12,7 +12,9 @@ db.create_all()
 
 
 class MessageModelTestCase(TestCase):
-    """Test models for messages"""
+    """
+    Test models for messages
+    """
 
     def setUp(self):
         """
@@ -66,7 +68,7 @@ class MessageModelTestCase(TestCase):
     def message_create_failure(self):
         """
         TESTS:
-        -
+        - Invalid message creation attempt fails
         """
         error = False
 

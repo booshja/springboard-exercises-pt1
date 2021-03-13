@@ -31,7 +31,9 @@ connect_db(app)
 
 @app.before_request
 def add_user_to_g():
-    """If we're logged in, add curr user to Flask global."""
+    """
+    If we're logged in, add curr user to Flask global.
+    """
 
     if CURR_USER_KEY in session:
         g.user = User.query.get(session[CURR_USER_KEY])
@@ -41,7 +43,9 @@ def add_user_to_g():
 
 
 def do_login(user):
-    """Log in user."""
+    """
+    Log in user.
+    """
 
     session[CURR_USER_KEY] = user.id
 
@@ -55,14 +59,16 @@ def do_logout():
 
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
-    """Handle user signup.
-
-    Create new user and add to DB. Redirect to home page.
-
-    If form not valid, present form.
-
-    If the there already is a user with that username: flash message
-    and re-present form.
+    """
+    GET ROUTE:
+    - Display signup form
+    ----------
+    POST ROUTE:
+    Handle user signup.
+    - Create new user and add to DB.
+    - Redirect to home page.
+    - If form not valid, present form.
+    - If the there already is a user with that username: flash message and re-present form.
     """
 
     form = UserAddForm()
@@ -91,7 +97,13 @@ def signup():
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
-    """Handle user login."""
+    """
+    GET ROUTE:
+    - Display login form
+    ----------
+    POST ROUTE:
+    - Handle user login.
+    """
 
     form = LoginForm()
 
@@ -111,7 +123,10 @@ def login():
 
 @app.route('/logout')
 def logout():
-    """Handle logout of user."""
+    """
+    GET ROUTE:
+    - Handle logout of user.
+    """
 
     do_logout()
 
@@ -125,9 +140,10 @@ def logout():
 
 @app.route('/users')
 def list_users():
-    """Page with listing of users.
-
-    Can take a 'q' param in querystring to search by that username.
+    """
+    GET ROUTE:
+    - Page with listing of users.
+    - Can take a 'q' param in querystring to search by that username.
     """
 
     search = request.args.get('q')
@@ -142,7 +158,10 @@ def list_users():
 
 @app.route('/users/<int:user_id>')
 def users_show(user_id):
-    """Show user profile."""
+    """
+    GET ROUTE:
+    - Show user profile.
+    """
 
     user = User.query.get_or_404(user_id)
 
@@ -159,7 +178,10 @@ def users_show(user_id):
 
 @app.route('/users/<int:user_id>/following')
 def show_following(user_id):
-    """Show list of people this user is following."""
+    """
+    GET ROUTE:
+    - Show list of people this user is following.
+    """
 
     if not g.user:
         flash("Access unauthorized.", "danger")
@@ -171,7 +193,10 @@ def show_following(user_id):
 
 @app.route('/users/<int:user_id>/followers')
 def users_followers(user_id):
-    """Show list of followers of this user."""
+    """
+    GET ROUTE:
+    - Show list of followers of this user.
+    """
 
     if not g.user:
         flash("Access unauthorized.", "danger")
@@ -183,7 +208,10 @@ def users_followers(user_id):
 
 @app.route('/users/follow/<int:follow_id>', methods=['POST'])
 def add_follow(follow_id):
-    """Add a follow for the currently-logged-in user."""
+    """
+    POST ROUTE:
+    - Add a follow for the currently-logged-in user.
+    """
 
     if not g.user:
         flash("Access unauthorized.", "danger")
@@ -198,7 +226,10 @@ def add_follow(follow_id):
 
 @app.route('/users/stop-following/<int:follow_id>', methods=['POST'])
 def stop_following(follow_id):
-    """Have currently-logged-in-user stop following this user."""
+    """
+    POST ROUTE:
+    - Have currently-logged-in-user stop following this user.
+    """
 
     if not g.user:
         flash("Access unauthorized.", "danger")
@@ -213,7 +244,13 @@ def stop_following(follow_id):
 
 @app.route('/users/profile/<int:user_id>', methods=["GET", "POST"])
 def profile(user_id):
-    """Update profile for current user."""
+    """
+    GET ROUTE:
+    - Show form with pre-filled data
+    ----------
+    POST ROUTE:
+    -Update profile for current user.
+    """
 
     form = UserEditForm()
     user = User.query.get_or_404(user_id)
@@ -253,7 +290,10 @@ def profile(user_id):
 
 @app.route('/users/delete', methods=["POST"])
 def delete_user():
-    """Delete user."""
+    """
+    POST ROUTE:
+    - Delete user.
+    """
 
     if not g.user:
         flash("Access unauthorized.", "danger")
@@ -272,9 +312,13 @@ def delete_user():
 
 @app.route('/messages/new', methods=["GET", "POST"])
 def messages_add():
-    """Add a message:
-
-    Show form if GET. If valid, update message and redirect to user page.
+    """
+    GET ROUTE:
+    - Show form
+    ----------
+    POST ROUTE:
+    Add a message:
+    - If valid, update message and redirect to user page.
     """
 
     if not g.user:
@@ -295,7 +339,10 @@ def messages_add():
 
 @app.route('/messages/<int:message_id>', methods=["GET"])
 def messages_show(message_id):
-    """Show a message."""
+    """
+    GET ROUTE:
+    - Show a message.
+    """
 
     msg = Message.query.get(message_id)
     return render_template('messages/show.html', message=msg)
@@ -303,7 +350,10 @@ def messages_show(message_id):
 
 @app.route('/messages/<int:message_id>/delete', methods=["POST"])
 def messages_destroy(message_id):
-    """Delete a message."""
+    """
+    POST ROUTE:
+    - Delete a message.
+    """
 
     if not g.user:
         flash("Access unauthorized.", "danger")
@@ -322,7 +372,10 @@ def messages_destroy(message_id):
 
 @app.route('/users/add_like/<int:msg_id>', methods=["POST"])
 def add_like(msg_id):
-    """Process adding a like to a warble for the user"""
+    """
+    POST ROUTE:
+    - Process adding a like to a warble for the user
+    """
 
     if g.user:
         user = User.query.get_or_404(g.user.id)
@@ -340,7 +393,10 @@ def add_like(msg_id):
 
 @app.route('/users/remove_like/<int:msg_id>', methods=["POST"])
 def remove_like(msg_id):
-    """Process removing a like from a warble for the user"""
+    """
+    POST ROUTE:
+    - Process removing a like from a warble for the user
+    """
 
     if g.user:
         user = User.query.get_or_404(g.user.id)
@@ -356,7 +412,10 @@ def remove_like(msg_id):
 
 @app.route('/users/<int:user_id>/likes')
 def show_likes(user_id):
-    """Show all the messages the user has liked"""
+    """
+    GET ROUTE:
+    - Show all the messages the user has liked
+    """
 
     if not g.user:
         flash("Access unauthorized.", "danger")
@@ -370,8 +429,9 @@ def show_likes(user_id):
 
 @app.route('/')
 def homepage():
-    """Show homepage:
-
+    """
+    GET ROUTE:
+    Show homepage:
     - anon users: no messages
     - logged in: 100 most recent messages of followed_users
     """
@@ -403,7 +463,9 @@ def homepage():
 
 @app.after_request
 def add_header(req):
-    """Add non-caching headers on every request."""
+    """
+    Add non-caching headers on every request.
+    """
 
     req.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
     req.headers["Pragma"] = "no-cache"

@@ -47,7 +47,8 @@ class UserModelTestCase(TestCase):
 
     def test_user_model(self):
         """
-        Does basic model work?
+        TESTS:
+        - Does basic model work?
         """
         u = User(
             email="test@test.com",
@@ -64,7 +65,8 @@ class UserModelTestCase(TestCase):
 
     def test_repr_method(self):
         """
-        Checks the repr method works as expected
+        TESTS:
+        - Checks the repr method works as expected
         """
         user = User(email="test@test.com", username="testuser",
                     password="HASHED_PASSWORD")

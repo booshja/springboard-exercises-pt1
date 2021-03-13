@@ -34,10 +34,14 @@ app.config['WTF_CSRF_ENABLED'] = False
 
 
 class MessageViewTestCase(TestCase):
-    """Test views for messages."""
+    """
+    Test views for messages.
+    """
 
     def setUp(self):
-        """Create test client, add sample data."""
+        """
+        Create test client, add sample data.
+        """
 
         User.query.delete()
         Message.query.delete()
@@ -51,6 +55,13 @@ class MessageViewTestCase(TestCase):
 
         db.session.commit()
 
+    def fake_login(self, client):
+        """
+        Setting up fake login via changing-session trick
+        """
+        with client.session_transaction() as sess:
+            sess[CURR_USER_KEY] = self.testuser.id
+
     def test_add_message(self):
         """
         TESTS:
@@ -61,8 +72,7 @@ class MessageViewTestCase(TestCase):
         # we need to use the changing-session trick:
 
         with self.client as c:
-            with c.session_transaction() as sess:
-                sess[CURR_USER_KEY] = self.testuser.id
+            self.fake_login(c)
 
             # Now, that session setting is saved, so we can have
             # the rest of ours test
@@ -82,18 +92,17 @@ class MessageViewTestCase(TestCase):
         - Does the page display the message?
         """
         with self.client as client:
-            with client.session_transaction9) as sess:
-                sess[CURR_USER_KEY]=self.testuser.id
+            self.fake_login(client)
 
-            msg=client.post("/messages/new",
-                            data = {"text": "testing...testing"})
-            message=Message.query.one()
+            msg = client.post("/messages/new",
+                              data={"text": "testing...testing"})
+            message = Message.query.one()
 
-            resp=client.get(f'/messages/{message.id}')
-            html=resp.get_data(as_text = True)
+            resp = client.get(f'/messages/{message.id}')
+            html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
-            self.assertIn(html, "testing...testing")
+            self.assertIn("testing...testing", html)
 
     def test_destroy_message(self):
         """
@@ -101,3 +110,14 @@ class MessageViewTestCase(TestCase):
         - Correct response code
         - Does the message get deleted?
         """
+        with self.client as client:
+            self.fake_login(client)
+
+            msg = client.post("/messages/new",
+                              data={"text": "testing...testing"})
+            message = Message.query.one()
+
+            resp = client.post(f'/messages/{message.id}/delete')
+
+            self.assertEqual(resp.status_code, 302)
+            self.assertEqual(len(Message.query.all()), 0)
