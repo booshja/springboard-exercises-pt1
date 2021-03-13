@@ -231,6 +231,7 @@ def profile(user_id):
             user.image_url = form.image_url.data or user.image_url
             user.header_image_url = form.header_image_url.data or user.header_image_url
             user.bio = form.bio.data or user.bio
+            user.location = form.location.data or user.location
 
             db.session.add(user)
             db.session.commit()
@@ -241,6 +242,12 @@ def profile(user_id):
             flash("Incorrect password", "danger")
             return redirect(f'/users/profile/{user.id}')
     else:
+        form.username.data = user.username
+        form.email.data = user.email
+        form.image_url.data = user.image_url
+        form.header_image_url.data = user.header_image_url
+        form.bio.data = user.bio
+        form.location.data = user.location
         return render_template('/users/edit.html', form=form, user=user)
 
 
@@ -346,6 +353,17 @@ def remove_like(msg_id):
         flash("Like removed.", "info")
         return redirect('/')
 
+
+@app.route('/users/<int:user_id>/likes')
+def show_likes(user_id):
+    """Show all the messages the user has liked"""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect('/')
+
+    user = User.query.get_or_404(user_id)
+    return render_template('/users/likes.html', user=user)
 ##############################################################################
 # Homepage and error pages
 
