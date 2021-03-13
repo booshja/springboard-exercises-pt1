@@ -30,24 +30,25 @@ db.create_all()
 
 
 class UserModelTestCase(TestCase):
-    """Test views for messages."""
+    """Test models for users"""
 
     def setUp(self):
         """
-        Create test client, add sample data.
+        Clean up User and Follows data
         """
-
         User.query.delete()
-        Message.query.delete()
         Follows.query.delete()
 
-        self.client = app.test_client()
+    def tearDown(self):
+        """
+        Clean up any failed transations
+        """
+        db.session.rollback()
 
     def test_user_model(self):
         """
         Does basic model work?
         """
-
         u = User(
             email="test@test.com",
             username="testuser",
