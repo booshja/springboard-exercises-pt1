@@ -3,7 +3,7 @@
 from app import app, CURR_USER_KEY
 from unittest import TestCase
 
-from models import db, Message, User
+from models import db, Message, User, Follows
 
 app.config['DATABASE_URI'] = "postgresql:///warbler-test"
 app.config['TESTING'] = True
@@ -103,8 +103,27 @@ class UserViewTestCase(TestCase):
     def test_show_following(self):
         """
         TESTS:
+        - Status code returns correct
         -
         """
+        with self.client as client:
+            self.fake_login(client)
+
+            test_krew = User.signup(
+                username="krew", email="krew@email.com", password="HASHED_PASSWORD", image_url=None)
+            db.session.commit()
+            krew = User.query.filter_by(username="krew").one()
+
+            new_follow = Follows(user_being_followed_id=krew.id,
+                                 user_following_id=self.testuser.id)
+            db.session.add(new_follow)
+            db.session.commit()
+
+            resp = client.get(f'/users/{self.testuser.id}/following')
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('<p>@krew</p>', html)
 
     def test_users_followers(self):
         """
