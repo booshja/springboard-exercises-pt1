@@ -102,8 +102,8 @@ class UserViewTestCase(TestCase):
     def test_show_following(self):
         """
         TESTS:
-        - Status code returns correct
-        -
+        - Status code comes correct
+        - The user being followed shows up on the page
         """
         with self.client as client:
             self.fake_login(client)
@@ -123,13 +123,32 @@ class UserViewTestCase(TestCase):
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
-            self.assertIn('@ralph', html)
+            self.assertIn('<p>@ralph</p>', html)
 
     def test_users_followers(self):
         """
         TESTS:
-        -
+        -Status code returns correct
         """
+        with self.client as client:
+            self.fake_login(client)
+
+            test = User.signup(
+                username="ralph", email="ralph@email.com", password="HASHED_PASSWORD", image_url=None)
+            db.session.commit()
+
+            ralph = User.query.filter_by(username="ralph").first()
+
+            new_follow = Follows(
+                user_being_followed_id=self.testuser.id, user_following_id=ralph.id)
+            db.session.add(new_follow)
+            db.session.commit()
+
+            resp = client.get(f'/users/{self.testuser.id}/followers')
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('<p>@ralph</p>', html)
 
     def test_add_follow(self):
         """
