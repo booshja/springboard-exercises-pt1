@@ -9,7 +9,7 @@ app.config['TESTING'] = True
 
 db.create_all()
 
-app.config['WTF_CSRE_ENABLED'] = False
+app.config['WTF_CSRF_ENABLED'] = False
 
 
 class UserViewTestCase(TestCase):
@@ -219,14 +219,40 @@ class UserViewTestCase(TestCase):
     def test_post_profile(self):
         """
         TESTS:
-        -
+        - Status code returns correct
+        - "Profile updated" flash is displayed
         """
+
+        form = {"username": self.testuser.username, "email": self.testuser.email, "image_url": self.testuser.image_url,
+                "header_image_url": self.testuser.header_image_url, "bio": self.testuser.bio, "location": "Seattle, WA, USA", "password": "testuser"}
+
+        with self.client as client:
+            self.fake_login(client)
+
+            resp = client.post(
+                f'/users/profile/{self.testuser.id}', data=form, follow_redirects=True)
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn(
+                '<div class="alert alert-success">Profile updated!</div>', html)
 
     def test_destroy_user(self):
         """
         TESTS:
-        -
+        - Status code returns correct
+        - "User deleted" flash is displayed
         """
+
+        with self.client as client:
+            self.fake_login(client)
+
+            resp = client.post('/users/delete', follow_redirects=True)
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn(
+                '<div class="alert alert-info">User deleted.</div>', html)
 
     def test_add_like(self):
         """
