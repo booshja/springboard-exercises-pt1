@@ -200,7 +200,23 @@ class UserViewTestCase(TestCase):
             self.assertEqual(resp.status_code, 200)
             self.assertNotIn("<p>@ralph</p>", html)
 
-    def test_profile(self):
+    def test_get_profile(self):
+        """
+        TESTS:
+        - Status code returns correct
+        - Form to edit user displays
+        """
+        with self.client as client:
+            self.fake_login(client)
+
+            resp = client.get(f'/users/profile/{self.testuser.id}')
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn(
+                '<input class="form-control" id="username" name="username" placeholder="Username" required type="text" value="testuser">', html)
+
+    def test_post_profile(self):
         """
         TESTS:
         -
