@@ -309,5 +309,39 @@ class UserViewTestCase(TestCase):
     def test_show_likes(self):
         """
         TESTS:
-        -
+        - Response returns correct
+        - Both liked messages are displayed
         """
+
+        with self.client as client:
+            self.fake_login(client)
+
+            test_mess1 = Message(text="test test TEST 1!",
+                                 user_id=self.testuser.id)
+            test_mess2 = Message(text="test test TEST 2!",
+                                 user_id=self.testuser.id)
+
+            db.session.add(test_mess1)
+            db.session.add(test_mess2)
+            db.session.commit()
+
+            msg1 = Message.query.filter_by(text="test test TEST 1!").first()
+            msg2 = Message.query.filter_by(text="test test TEST 2!").first()
+
+            test_like1 = Likes(user_id=self.testuser.id, message_id=msg1.id)
+            test_like2 = Likes(user_id=self.testuser.id, message_id=msg2.id)
+            db.session.add(test_like1)
+            db.session.add(test_like2)
+            db.session.commit()
+
+            like1 = Likes.query.filter_by(
+                user_id=self.testuser.id, message_id=msg1.id).first()
+            like2 = Likes.query.filter_by(
+                user_id=self.testuser.id, message_id=msg2.id).first()
+
+            resp = client.get(f'/users/{self.testuser.id}/likes')
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn("<p>test test TEST 1!</p>", html)
+            self.assertIn("<p>test test TEST 2!</p>", html)
