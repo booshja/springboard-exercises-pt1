@@ -6,20 +6,10 @@
 
 
 from app import app
-import os
 from unittest import TestCase
+from models import db, User, Follows
 
-from models import db, User, Message, Follows
-
-# BEFORE we import our app, let's set an environmental variable
-# to use a different database for tests (we need to do this
-# before we import our app, since that will have already
-# connected to the database
-
-os.environ['DATABASE_URL'] = "postgresql:///warbler-test"
-
-
-# Now we can import app
+app.config['DATABASE_URL'] = "postgresql:///warbler-test"
 
 
 # Create our tables (we do this here, so we only create the tables
@@ -47,7 +37,8 @@ class UserModelTestCase(TestCase):
 
     def test_user_model(self):
         """
-        Does basic model work?
+        TESTS:
+        - Does basic model work?
         """
         u = User(
             email="test@test.com",
@@ -64,7 +55,8 @@ class UserModelTestCase(TestCase):
 
     def test_repr_method(self):
         """
-        Checks the repr method works as expected
+        TESTS:
+        - Checks the repr method works as expected
         """
         user = User(email="test@test.com", username="testuser",
                     password="HASHED_PASSWORD")

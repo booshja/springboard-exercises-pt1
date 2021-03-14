@@ -1,18 +1,20 @@
 """Message model tests."""
 
 from app import app
-import os
 from unittest import TestCase
 
-from models import db, User, Message, Follows
+from models import db, User, Message
 
-os.environ['DATABASE_URL'] = "postgresql:///warbler-test"
+app.config['DATABASE_URI'] = "postgresql:///warbler-test"
+app.config['TESTING'] = True
 
 db.create_all()
 
 
 class MessageModelTestCase(TestCase):
-    """Test models for messages"""
+    """
+    Test models for messages
+    """
 
     def setUp(self):
         """
@@ -66,7 +68,7 @@ class MessageModelTestCase(TestCase):
     def message_create_failure(self):
         """
         TESTS:
-        -
+        - Invalid message creation attempt fails
         """
         error = False
 
