@@ -10,7 +10,9 @@ db = SQLAlchemy()
 
 
 class Follows(db.Model):
-    """Connection of a follower <-> followed_user."""
+    """
+    Connection of a follower <-> followed_user.
+    """
 
     __tablename__ = 'follows'
 
@@ -32,7 +34,9 @@ class Follows(db.Model):
 
 
 class Likes(db.Model):
-    """Mapping user likes to warbles."""
+    """
+    Mapping user likes to warbles.
+    """
 
     __tablename__ = 'likes'
 
@@ -58,7 +62,9 @@ class Likes(db.Model):
 
 
 class User(db.Model):
-    """User in the system."""
+    """
+    User in the system.
+    """
 
     __tablename__ = 'users'
 
@@ -142,8 +148,8 @@ class User(db.Model):
 
     @classmethod
     def signup(cls, username, email, password, image_url):
-        """Sign up user.
-
+        """
+        Sign up user.
         Hashes password and adds user to system.
         """
 
@@ -161,7 +167,8 @@ class User(db.Model):
 
     @classmethod
     def authenticate(cls, username, password):
-        """Find user with `username` and `password`.
+        """F
+        ind user with `username` and `password`.
 
         This is a class method (call it on the class, not an individual user.)
         It searches for a user whose password hash matches this password
@@ -181,7 +188,9 @@ class User(db.Model):
 
 
 class Message(db.Model):
-    """An individual message ("warble")."""
+    """
+    An individual message ("warble").
+    """
 
     __tablename__ = 'messages'
 
@@ -215,7 +224,8 @@ class Message(db.Model):
 
 
 def connect_db(app):
-    """Connect this database to provided Flask app.
+    """
+    Connect this database to provided Flask app.
 
     You should call this in your Flask app.
     """

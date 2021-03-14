@@ -97,7 +97,7 @@ class UserViewTestCase(TestCase):
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
-            self.assertIn("<p>@testuser</p>", html)
+            self.assertIn('<h4 id="sidebar-username">@testuser</h4>', html)
 
     def test_show_following(self):
         """
@@ -108,13 +108,14 @@ class UserViewTestCase(TestCase):
         with self.client as client:
             self.fake_login(client)
 
-            test_krew = User.signup(
+            test = User.signup(
                 username="ralph", email="ralph@email.com", password="HASHED_PASSWORD", image_url=None)
             db.session.commit()
+
             ralph = User.query.filter_by(username="ralph").first()
 
-            new_follow = Follows(user_being_followed_id=ralph.id,
-                                 user_following_id=self.testuser.id)
+            new_follow = Follows(
+                user_being_followed_id=ralph.id, user_following_id=self.testuser.id)
             db.session.add(new_follow)
             db.session.commit()
 
@@ -122,7 +123,7 @@ class UserViewTestCase(TestCase):
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
-            self.assertIn('<p>@ralph</p>', html)
+            self.assertIn('@ralph', html)
 
     def test_users_followers(self):
         """
