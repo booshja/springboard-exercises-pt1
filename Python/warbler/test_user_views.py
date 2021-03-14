@@ -176,8 +176,29 @@ class UserViewTestCase(TestCase):
     def test_stop_following(self):
         """
         TESTS:
-        -
+        - Status code returns correct
+        - Follower is removed from the page
         """
+        with self.client as client:
+            self.fake_login(client)
+
+            test = User.signup(username="ralph", email="ralph@email",
+                               password="HASHED_PASSWORD", image_url=None)
+            db.session.commit()
+
+            ralph = User.query.filter_by(username="ralph").first()
+
+            new_follow = Follows(
+                user_being_followed_id=ralph.id, user_following_id=self.testuser.id)
+            db.session.add(new_follow)
+            db.session.commit()
+
+            resp = client.post(
+                f'/users/stop-following/{ralph.id}', follow_redirects=True)
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertNotIn("<p>@ralph</p>", html)
 
     def test_profile(self):
         """
