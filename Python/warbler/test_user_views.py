@@ -280,8 +280,31 @@ class UserViewTestCase(TestCase):
     def test_remove_like(self):
         """
         TESTS:
-        -
+        - Response code returns correct
+        - "Like removed." flash is displayed
         """
+
+        with self.client as client:
+            self.fake_login(client)
+
+            test_mess = Message(text="test test TEST!",
+                                user_id=self.testuser.id)
+            db.session.add(test_mess)
+            db.session.commit()
+            msg = Message.query.filter_by(user_id=self.testuser.id).first()
+
+            test_like = Likes(user_id=self.testuser.id, message_id=msg.id)
+            db.session.add(test_like)
+            db.session.commit()
+            like = Likes.query.filter_by(user_id=self.testuser.id).first()
+
+            resp = client.post(
+                f'/users/remove_like/{msg.id}', follow_redirects=True)
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn(
+                '<div class="alert alert-info">Like removed.</div>', html)
 
     def test_show_likes(self):
         """
