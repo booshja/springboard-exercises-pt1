@@ -3,7 +3,7 @@
 import os
 from app import app, CURR_USER_KEY
 from unittest import TestCase
-from models import db, Message, User, Follows
+from models import db, Message, User, Follows, Likes
 
 app.config['TESTING'] = True
 
@@ -257,8 +257,25 @@ class UserViewTestCase(TestCase):
     def test_add_like(self):
         """
         TESTS:
-        -
+        - Status code returns correct
+        - "Warble liked!" flash is displayed
         """
+
+        test_mess = Message(text="test test TEST!", user_id=self.testuser.id)
+        db.session.add(test_mess)
+        db.session.commit()
+        msg = Message.query.filter_by(user_id=self.testuser.id).first()
+
+        with self.client as client:
+            self.fake_login(client)
+
+            resp = client.post(
+                f'/users/add_like/{msg.id}', follow_redirects=True)
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn(
+                '<div class="alert alert-success">Warble liked!</div>', html)
 
     def test_remove_like(self):
         """
